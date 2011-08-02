@@ -10,9 +10,6 @@ class midiGenerator(object):
     
     """ Generates MIDI signals. """
     
-    GRAND_PIANO = 0
-    CHURCH_ORGAN = 19
-    
     def __init__(self, device_id=None, instrument=0):
         """ Initialise pyGame and MIDI and such. """
         
@@ -25,8 +22,8 @@ class midiGenerator(object):
         self.midi_out.set_instrument(instrument)
     
     def _convert_note(self, note):
-        """ Convert the given note, a string like 'C4' into its corresponding
-        MIDI number. """
+        """ Convert the given note, a string like 'C4' or 'Ab2' into its
+        corresponding MIDI number. """
         
         letters = {'C':0, 'D':2, 'E':4, 'F':5, 'G':7, 'A':9, 'B':11,
                    'C#':1, 'Db':1, 'D#':3, 'Eb':3, 'F#':6, 'Gb':6,
@@ -68,8 +65,7 @@ class midiGenerator(object):
     
     @staticmethod
     def print_device_info():
-        """ Print MIDI device info. Make sure pyGame and pyGame.midi are
-        initialised before calling this function. """
+        """ Print MIDI device info. """
         
         for i in range(pygame.midi.get_count()):
             r = pygame.midi.get_device_info(i)

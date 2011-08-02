@@ -1,6 +1,6 @@
 
 """ Functions as a Ghetto VST by using GridSequencer to generate MIDI with
-pyGame, which is routed with midiYoke to Ableton Live. """
+pyGame, which is routed with LoopBe to Ableton Live. """
 
 
 from GridSequencer import GridSequencer, TextDisplay
@@ -8,10 +8,10 @@ from midiGenerator import midiGenerator
 from time import sleep, clock
 
 
-seq = GridSequencer()
-view = TextDisplay(seq)
-
 scale = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4']
+
+seq = GridSequencer(len(scale))
+view = TextDisplay(seq)
 
 seq.add([0,0], seq.RIGHT)
 seq.add([0,2], seq.RIGHT)
@@ -54,7 +54,5 @@ while True:
     while clock() - t < sleep_time:
         pass
     t = clock()
-    
-    #sleep(sleep_time/2)
 
 midi.cleanup()

@@ -1,30 +1,5 @@
 
-
-class Matrix(object):
-    
-    """ A 2D matrix. """
-    
-    def __init__(self, size, value=None):
-        """ Create a new matrix of the given size, filled with the given value.
-        Size should be a pair. """
-        
-        self.height, self.width = size
-        self.array = [[value for i in xrange(self.width)] for j in xrange(self.height)]
-    
-    def __getitem__(self, index):
-        """ Return the specified element from the matrix. Index should be a
-        pair. """
-        
-        return self.array[index[0]][index[1]]
-    
-    def __setitem__(self, index, value):
-        """ Set the specified element in the matrix. Index should be a pair. """
-        
-        self.array[index[0]][index[1]] = value
-    
-    def __str__(self):
-        return '\n'.join([' '.join([str(e) for e in r]) for r in self.array])
-
+from Matrix import *
 
 class GridSequencer(object):
     
@@ -33,7 +8,8 @@ class GridSequencer(object):
     EMPTY, UP, RIGHT, DOWN, LEFT = range(5)
     
     def __init__(self, size=9):
-        """ Create a new Seq object, a square grid of side length size. """
+        """ Create a new GridSequencer object, a square grid of side length
+        size. """
         
         self.size = size
         self.grid = Matrix([size,size], self.EMPTY)
