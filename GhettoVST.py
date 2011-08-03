@@ -3,15 +3,16 @@
 pyGame, which is routed with LoopBe to Ableton Live. """
 
 
-from GridSequencer import GridSequencer, TextDisplay
+from GridSequencer import GridSequencer
+from Display import Display
 from midiGenerator import midiGenerator
-from time import sleep, clock
+from time import clock
 
 
 scale = ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4']
 
 seq = GridSequencer(len(scale))
-view = TextDisplay(seq)
+view = Display(seq, [2,2])
 
 seq.add([0,0], seq.RIGHT)
 seq.add([0,2], seq.RIGHT)
@@ -31,10 +32,12 @@ port = None
 for device in midiGenerator.get_devices():
     if device['name'] == 'LoopBe Internal MIDI' and device['output']:
         port = device['port']
-        print 'Using %s device.' % device['name']
+        print 'Ouputting MIDI to %s device.' % device['name']
 if port is None:
     print 'Fatal Error: Could not find LoopBe MIDI device.'
     exit()
+
+print 'Running at %ibpm.' % bpm
 
 midi = midiGenerator(port)
 
@@ -42,7 +45,8 @@ t = clock()
 
 while True:
     
-    print view
+    #view.clear_grid()
+    view.update()
     
     # Sounds
     notes = [scale[i] for i in list(set(seq.hit_list))]
